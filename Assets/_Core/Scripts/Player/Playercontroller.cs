@@ -3,68 +3,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Playercontroller : MonoBehaviour
+[RequireComponent(typeof(CharacterController))]
+public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
+    private CharacterController controller;
+    private GameObject light;
 
-    public float Speed = 5;
-    public float JumpForce = 5;
-    
-    public KeyCode Avancer = KeyCode.Z;
-    public KeyCode Reculer = KeyCode.S;
-    public KeyCode Droite = KeyCode.D;
-    public KeyCode Gauche = KeyCode.Q;
-    public KeyCode Jump = KeyCode.Space;
+    [Header("Physiques du joueur")]
+    public float Gravity;
+    public float Speed;
 
-    private bool IsJumping = true;
+    [HideInInspector] public bool LightIsActive;
 
-    private void Awake()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        controller = GetComponent<CharacterController>();
+        light = GameObject.FindWithTag("PlayerLight");
+        ApplyLight(false);
     }
 
     private void Update()
     {
-        Movements();
-        Jumps();
+        ApplyGravity();
+        Mouvement();
     }
 
-    private void OnCollisionEnter(Collision _collision)
+    void ApplyGravity()
     {
-        if (_collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        if (!controller.isGrounded)
         {
-            IsJumping = false;
+            Vector3 _gravityDirection = Vector3.zero;
+            _gravityDirection.y = -Gravity;
+            controller.Move(_gravityDirection * Time.deltaTime);
         }
     }
 
-    void Movements()
+    void Mouvement()
     {
-        if (Input.GetKey(Avancer))
-        {
-            rb.AddForce(transform.forward * Speed);
-        }else if (Input.GetKey(Reculer))
-        {
-            rb.AddForce(-transform.forward * Speed);
-        } else if (Input.GetKey(Droite))
-        {
-            rb.AddForce(transform.right * Speed);
-        }else if (Input.GetKey(Gauche))
-        {
-            rb.AddForce(-transform.right * Speed);
-        }
+        Vector3 _playerDirection = Vector3.zero;
+        _playerDirection.x += Input.GetAxis("Horizontal") * Time.deltaTime;
+        _playerDirection.z += Input.GetAxis("Vertical") * Time.deltaTime;
+        controller.Move(_playerDirection * Speed);
     }
 
-    void Jumps()
+    public void ApplyLight(bool _on)
     {
-        if (!IsJumping)
-        {
-            if (Input.GetKeyDown(Jump))
-            {
-                rb.AddForce(transform.up * JumpForce);
-                IsJumping = true;
-            }
-        }
+        light.SetActive(_on);
+        LightIsActive = _on;
     }
 }

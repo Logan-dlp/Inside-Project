@@ -6,7 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Rigidbody))]
 public class CameraManager : MonoBehaviour
 {
-   public Transform playerCamera;
+   private Transform playerCamera;
+   
+   /// <summary>
+   /// Position et rotation de la caméra après un changement.
+   /// </summary>
    public Transform AfterCameraPosition;
    public float Speed;
 
@@ -19,6 +23,7 @@ public class CameraManager : MonoBehaviour
    {
       if (_collider.gameObject.layer == LayerMask.NameToLayer("Player"))
       {
+         Debug.Log(_collider);
          if (playerCamera != AfterCameraPosition)
          {
             MoveCamera();
