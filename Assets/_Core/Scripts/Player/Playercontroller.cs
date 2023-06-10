@@ -5,7 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController)), RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(CharacterController)), RequireComponent(typeof(PlayerInput)), RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
     private GameObject light;
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public float Speed;
     public float RotateSmoothTime = .05f;
     
-    private Vector3 Direction;
+    private Vector3 direction;
     private Vector2 input;
     private float currentVelocity;
     
@@ -47,13 +47,13 @@ public class PlayerController : MonoBehaviour
     void MovePerformed(InputAction.CallbackContext _ctx)
     {
         input = _ctx.ReadValue<Vector2>();
-        Direction = new Vector3(input.x, 0, input.y);
+        direction = new Vector3(input.x, 0, input.y);
     }
 
     void MoveCanceled(InputAction.CallbackContext _ctx)
     {
         input = Vector2.zero;
-        Direction = Vector3.zero;
+        direction = Vector3.zero;
     }
 
     void ApplyGravity()
@@ -69,10 +69,10 @@ public class PlayerController : MonoBehaviour
     void Mouvement()
     {
         if (input.sqrMagnitude == 0) return;
-        float _targetAngle = Mathf.Atan2(Direction.x, Direction.z) * Mathf.Rad2Deg;
+        float _targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         float _angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetAngle, ref currentVelocity, RotateSmoothTime);
         transform.rotation = Quaternion.Euler(0, _angle, 0);
-        controller.Move(Direction * Speed * Time.deltaTime);
+        controller.Move(direction * Speed * Time.deltaTime);
     }
 
     void ApplyAnimation()

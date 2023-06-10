@@ -1,0 +1,27 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LeverInteraction : MonoBehaviour, IInterctable
+{
+    private Animator animator;
+    private bool on = false;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        GetComponentInChildren<Renderer>().material.SetFloat("_Power", 100);
+    }
+
+    public void Interact(GameObject _player)
+    {
+        animator.SetBool("On", !on);
+        _player.gameObject.GetComponent<PlayerController>().ApplyLight(!on);
+        on = !on;
+    }
+}
