@@ -23,7 +23,6 @@ public class CameraManager : MonoBehaviour
    {
       if (_collider.gameObject.layer == LayerMask.NameToLayer("Player"))
       {
-         Debug.Log(_collider);
          if (playerCamera != AfterCameraPosition)
          {
             MoveCamera();
