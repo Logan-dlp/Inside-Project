@@ -13,7 +13,7 @@ public class LeverInteraction : MonoBehaviour, IInterctable
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         GetComponentInChildren<Renderer>().material.SetFloat("_Power", 100);
     }
