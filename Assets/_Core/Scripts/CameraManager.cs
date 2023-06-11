@@ -8,9 +8,7 @@ public class CameraManager : MonoBehaviour
 {
    private Transform playerCamera;
    
-   /// <summary>
-   /// Position et rotation de la caméra après un changement.
-   /// </summary>
+   [Header("Camera settings")]
    public Transform AfterCameraPosition;
    public float Speed;
 

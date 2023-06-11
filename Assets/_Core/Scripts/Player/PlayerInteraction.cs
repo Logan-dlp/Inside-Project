@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public float RayDistance = 2;
-    public float RayHeight = 1.3f;
     private PlayerInput playerInput;
     private Animator animator;
-
+    private Vector3 rayHeight;
+    
+    [Header("RayCast settings")]
+    public float RayDistance = 2;
+    public float RayHeight = 1.3f;
+    
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -18,12 +21,14 @@ public class PlayerInteraction : MonoBehaviour
 
         InputAction _interact = playerInput.actions["Interaction"];
         _interact.performed += InteractPerformed;
+
+        rayHeight = new Vector3(0, RayHeight, 0);
     }
 
     private void Update()
     {
-        Debug.DrawRay(transform.position + new Vector3(0, RayHeight, 0), transform.forward * RayDistance, color:Color.red);
-        if (Physics.Raycast(transform.position + new Vector3(0, RayHeight, 0), transform.forward, out RaycastHit _hit, RayDistance))
+        Debug.DrawRay(transform.position + rayHeight, transform.forward * RayDistance, color:Color.red);
+        if (Physics.Raycast(transform.position + rayHeight, transform.forward, out RaycastHit _hit, RayDistance))
         {
             if (_hit.collider.gameObject.TryGetComponent(out IInterctable _interctable))
             {
@@ -35,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
     void InteractPerformed(InputAction.CallbackContext _ctx)
     {
         
-        if (Physics.Raycast(transform.position + new Vector3(0, RayHeight, 0), transform.forward, out RaycastHit _hit, RayDistance))
+        if (Physics.Raycast(transform.position + rayHeight, transform.forward, out RaycastHit _hit, RayDistance))
         {
             if (_hit.collider.gameObject.TryGetComponent(out IInterctable _interctable))
             {

@@ -8,28 +8,30 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController)), RequireComponent(typeof(PlayerInput)), RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
-    private GameObject light;
-    [HideInInspector] public bool LightIsActive;
-
-    [Header("Physiques du joueur")]
-    private PlayerInput playerInput;
-    private CharacterController controller;
-    public float Gravity;
-    public float Speed;
-    public float RotateSmoothTime = .05f;
-    
     private Vector3 direction;
     private Vector2 input;
     private float currentVelocity;
     
     private Animator animator;
+    private GameObject light;
+    
+    [HideInInspector] public bool LightIsActive;
 
+    [Header("Physiques du joueur")]
+    private PlayerInput playerInput;
+    private CharacterController controller;
+    
+    public float Gravity;
+    public float Speed;
+    public float RotateSmoothTime = .05f;
+    
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();
         light = GetComponentInChildren<Light>().gameObject;
+        
         ApplyLight(false);
 
         InputAction _move = playerInput.actions["Move"];
@@ -77,14 +79,8 @@ public class PlayerController : MonoBehaviour
 
     void ApplyAnimation()
     {
-        if (input != Vector2.zero)
-        {
-            animator.SetBool("IsRunning", true);
-        }
-        else
-        {
-            animator.SetBool("IsRunning", false);
-        }
+        if (input != Vector2.zero) animator.SetBool("IsRunning", true);
+        else animator.SetBool("IsRunning", false);
     }
 
     public void ApplyLight(bool _on)

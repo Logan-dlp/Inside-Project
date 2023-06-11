@@ -20,8 +20,8 @@ public class LeverInteraction : MonoBehaviour, IInterctable
 
     public void Interact(GameObject _player)
     {
-        animator.SetBool("On", !on);
-        _player.gameObject.GetComponent<PlayerController>().ApplyLight(!on);
         on = !on;
+        animator.SetBool("On", on);
+        _player.gameObject.GetComponent<PlayerController>().ApplyLight(on);
     }
 }
