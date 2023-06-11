@@ -6,7 +6,7 @@ using UnityEngine;
 public class LeverInteraction : MonoBehaviour, IInterctable
 {
     private Animator animator;
-    private bool on = false;
+    private bool animationOn = true;
 
     private void Start()
     {
@@ -20,8 +20,8 @@ public class LeverInteraction : MonoBehaviour, IInterctable
 
     public void Interact(GameObject _player)
     {
-        on = !on;
-        animator.SetBool("On", on);
-        _player.gameObject.GetComponent<PlayerController>().ApplyLight(on);
+        animator.SetBool("On", animationOn);
+        animationOn = !animationOn;
+        _player.gameObject.GetComponent<PlayerController>().ApplyLight(!_player.gameObject.GetComponent<PlayerController>().LightIsActive);
     }
 }
