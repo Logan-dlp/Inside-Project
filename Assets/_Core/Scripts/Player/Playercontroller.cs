@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
     private GameObject light;
     
     [HideInInspector] public bool LightIsActive;
-
-    [Header("Physiques du joueur")]
+    
     private PlayerInput playerInput;
     private CharacterController controller;
     
+    [Header("Physiques du joueur")]
     public float Gravity;
     public float Speed;
     public float RotateSmoothTime = .05f;

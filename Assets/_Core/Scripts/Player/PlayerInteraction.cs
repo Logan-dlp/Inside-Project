@@ -39,7 +39,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void InteractPerformed(InputAction.CallbackContext _ctx)
     {
-        
         if (Physics.Raycast(transform.position + rayHeight, transform.forward, out RaycastHit _hit, RayDistance))
         {
             if (_hit.collider.gameObject.TryGetComponent(out IInterctable _interctable))
