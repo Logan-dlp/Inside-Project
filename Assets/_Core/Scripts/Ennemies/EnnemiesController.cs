@@ -16,20 +16,32 @@ public class EnnemiesController : MonoBehaviour
      * option : si le joueur atteint un certain rayon l'ennemis arrete de le suivre
      */
 
+    private List<Action> actions;
     private Animator animator;
     private NavMeshAgent agent;
-    public Transform[] Destination;
     private int increment;
-
+    private int indexFunct = 0;
+    
+    public Transform[] Destination;
+    
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        
+        AIActions();
     }
 
     private void Update()
     {
-        MovementPNJ();
+        if (indexFunct >= actions.Count) indexFunct = 0;
+        actions[indexFunct]();
+    }
+
+    void AIActions()
+    {
+        actions = new List<Action>();
+        actions.Add(MovementPNJ);
     }
 
     void MovementPNJ()
