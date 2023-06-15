@@ -43,9 +43,6 @@ public class EnnemiesController : MonoBehaviour
             if (increment >= _maxValue) increment = 0;
             agent.destination = Destination[increment].position;
         }
-        else if (increment == 0)
-        {
-            agent.destination = Destination[increment].position;
-        }
+        else if (increment == 0) agent.destination = Destination[increment].position;
     }
 }
