@@ -8,12 +8,9 @@ using UnityEngine.AI;
 public class EnnemiesController : MonoBehaviour
 {
     /*
-     * (2 modes)
-     * Tableau de point que l'ennemie vas suivre (Quand il ne voit pas le joueur) *
      * effet de surprise quand il voit un joueur (le voit directement s'il a la lumière allumer)
-     * il suit le joueur jusqu'a un certain rayon
      * infflige des degats au joueur
-     * option : si le joueur atteint un certain rayon l'ennemis arrete de le suivre
+     * animation quand il prend un degat et quand il meurt
      */
 
     private GameManager manager;
@@ -27,7 +24,8 @@ public class EnnemiesController : MonoBehaviour
     public Transform[] Destination;
 
     [Header("AI settings")] 
-    public float NavigationSpeed = 5;
+    public float NavigationSpeed = 3.5f;
+    public float AttackDistance = 2;
     public float DetectionDistanceMin = 5;
     public float DetectionDistanceMax = 10;
     
@@ -47,19 +45,33 @@ public class EnnemiesController : MonoBehaviour
             else _distance = DetectionDistanceMin;
             
             if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.transform.position.x, _player.transform.position.z)) <= _distance) AttackPlayer(_player);
-            else MovementPNJ();
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.transform.position.x, _player.transform.position.z)) > _distance) MovementPNJ();
         }
     }
 
     void AttackPlayer(GameObject _player)
     {
+        animator.SetBool("Walking", false);
         agent.speed = NavigationSpeed;
-        agent.destination = _player.transform.position;
+        if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.transform.position.x, _player.transform.position.z)) >= AttackDistance)
+        {
+            animator.SetBool("Attack", false);
+            animator.SetBool("Run", true);
+            agent.destination = _player.transform.position;
+        }
+        else
+        {
+            animator.SetBool("Run", false);
+            animator.SetBool("Attack", true);
+            agent.destination = transform.position;
+        }
     }
 
     void MovementPNJ()
     {
         agent.speed = PNJSpeed;
+        animator.SetBool("Attack", false);
+        animator.SetBool("Run", false);
         animator.SetBool("Walking", true);
         int _maxValue = Destination.Length;
         if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(Destination[increment].position.x, Destination[increment].position.z)) <= 2)
@@ -68,6 +80,6 @@ public class EnnemiesController : MonoBehaviour
             if (increment >= _maxValue) increment = 0;
             agent.destination = Destination[increment].position;
         }
-        else if (increment == 0) agent.destination = Destination[increment].position;
+        else agent.destination = Destination[increment].position;
     }
 }

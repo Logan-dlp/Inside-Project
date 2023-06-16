@@ -22,10 +22,13 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private CharacterController controller;
     
-    [Header("Physiques du joueur")]
+    [Header("Player physics")]
     public float Gravity;
     public float Speed;
     public float RotateSmoothTime = .05f;
+
+    [Header("Player settings")]
+    public float Life = 100;
     
     private void Start()
     {
@@ -42,6 +45,12 @@ public class PlayerController : MonoBehaviour
         InputAction _move = playerInput.actions["Move"];
         _move.performed += MovePerformed;
         _move.canceled += MoveCanceled;
+
+        InputAction _punch = playerInput.actions["Punch"];
+        _punch.performed += PunchPerformed;
+
+        InputAction _kick = playerInput.actions["Kick"];
+        _kick.performed += KickPerformed;
     }
 
     private void Update()
@@ -49,6 +58,16 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         Mouvement();
         ApplyAnimation();
+    }
+
+    void PunchPerformed(InputAction.CallbackContext _ctx)
+    {
+        animator.SetTrigger("AttackPunch");
+    }
+
+    void KickPerformed(InputAction.CallbackContext _ctx)
+    {
+        animator.SetTrigger("AttackKick");
     }
 
     void MovePerformed(InputAction.CallbackContext _ctx)
@@ -92,5 +111,10 @@ public class PlayerController : MonoBehaviour
     {
         light.SetActive(_on);
         LightIsActive = _on;
+    }
+
+    public void ApplyDamage(float _damage)
+    {
+        Life -= _damage;
     }
 }

@@ -6233,6 +6233,7 @@ MonoBehaviour:
   Gravity: 5
   Speed: 5
   RotateSmoothTime: 0.05
+  Life: 0
 --- !u!143 &5278190972553322593
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8131,7 +8132,8 @@ MonoBehaviour:
   - {fileID: 1462894223}
   - {fileID: 619675653}
   - {fileID: 447603834}
-  NavigationSpeed: 5
+  NavigationSpeed: 3.5
+  AttackDistance: 2
   DetectionDistanceMin: 5
   DetectionDistanceMax: 10
 --- !u!195 &7740298767899335633

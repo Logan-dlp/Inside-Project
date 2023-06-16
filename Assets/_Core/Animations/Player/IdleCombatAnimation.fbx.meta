@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a15a15075e006a24e8f099eeb45dc9b7
+guid: ce28119ba8a4ef742858662864547e79
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Skeletonzombie Suprised
+      name: IdleCombatAnimation
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 120
+      lastFrame: 66
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
