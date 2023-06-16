@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController)), RequireComponent(typeof(PlayerInput)), RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
+    private GameManager manager;
+    
     private Vector3 direction;
     private Vector2 input;
     private float currentVelocity;
@@ -27,6 +29,9 @@ public class PlayerController : MonoBehaviour
     
     private void Start()
     {
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        manager.Player.Add(gameObject);
+        
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerInput = GetComponent<PlayerInput>();

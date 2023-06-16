@@ -16,37 +16,50 @@ public class EnnemiesController : MonoBehaviour
      * option : si le joueur atteint un certain rayon l'ennemis arrete de le suivre
      */
 
-    private List<Action> actions;
+    private GameManager manager;
     private Animator animator;
     private NavMeshAgent agent;
     private int increment;
-    private int indexFunct = 0;
-    
+    private bool detectPlayer;
+
+    [Header("PNJ settings")]
+    public float PNJSpeed = 2.5f;
     public Transform[] Destination;
+
+    [Header("AI settings")] 
+    public float NavigationSpeed = 5;
+    public float DetectionDistanceMin = 5;
+    public float DetectionDistanceMax = 10;
     
     private void Start()
     {
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        
-        AIActions();
     }
 
     private void Update()
     {
-        if (indexFunct >= actions.Count) indexFunct = 0;
-        actions[indexFunct]();
+        foreach (GameObject _player in manager.Player)
+        {
+            float _distance;
+            if (_player.GetComponent<PlayerController>().LightIsActive) _distance = DetectionDistanceMax;
+            else _distance = DetectionDistanceMin;
+            
+            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(_player.transform.position.x, _player.transform.position.z)) <= _distance) AttackPlayer(_player);
+            else MovementPNJ();
+        }
     }
 
-    void AIActions()
+    void AttackPlayer(GameObject _player)
     {
-        actions = new List<Action>();
-        actions.Add(MovementPNJ);
+        agent.speed = NavigationSpeed;
+        agent.destination = _player.transform.position;
     }
 
     void MovementPNJ()
     {
-        agent.speed = 2.5f;
+        agent.speed = PNJSpeed;
         animator.SetBool("Walking", true);
         int _maxValue = Destination.Length;
         if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(Destination[increment].position.x, Destination[increment].position.z)) <= 2)

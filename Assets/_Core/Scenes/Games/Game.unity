@@ -1309,6 +1309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db53dd60bce386489b16ec389a53d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: []
 --- !u!4 &971728574
 Transform:
   m_ObjectHideFlags: 0
@@ -8124,11 +8125,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262a8b52180f12b46b7c739380bc7418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PNJSpeed: 2.5
   Destination:
   - {fileID: 893573205}
   - {fileID: 1462894223}
   - {fileID: 619675653}
   - {fileID: 447603834}
+  NavigationSpeed: 5
+  DetectionDistanceMin: 5
+  DetectionDistanceMax: 10
 --- !u!195 &7740298767899335633
 NavMeshAgent:
   m_ObjectHideFlags: 0
