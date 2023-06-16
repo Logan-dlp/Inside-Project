@@ -29,3 +29,9 @@ git clone https://github.com/Logan-dlp/LiveTwitch.git
 ## 📌 Contact
 
 Logan - logan.delachapelle@gmail.com
+
+## 📄 License
+
+[MIT License](https://github.com/Logan-dlp/Inside-Project/blob/dev/LICENSE)
+
+**Copyright Logan 2023**
