@@ -24,7 +24,7 @@ git clone https://github.com/Logan-dlp/LiveTwitch.git
 
 ## 🛠 Developer
 
-    - [Logan](https://github.com/Logan-dlp)
+- [Logan](https://github.com/Logan-dlp)
 
 ## 📌 Contact
 
