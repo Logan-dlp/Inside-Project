@@ -4,7 +4,7 @@ This project brings together what I learned after 1 year of learning about the U
 
 ## ❗ Information
 
-- Project Version: `2022.2.15f1`(NoLTS, 3D URP)
+- Project Version: `2022.3.2f1`(LTS, 3D URP)
 - Packages:
     * **AI Navigation** Version: `1.1.4`
     * **Input System** Version: `1.5.1`
