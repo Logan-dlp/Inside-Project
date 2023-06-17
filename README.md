@@ -7,7 +7,7 @@ This project brings together what I learned after 1 year of learning about the U
 - Project Version: `2022.3.2f1`(LTS, 3D URP)
 - Packages:
     * **AI Navigation** Version: `1.1.4`
-    * **Input System** Version: `1.5.1`
+    * **Input System** Version: `1.6.1`
     * **Post Processing** Version: `3.2.2`
 - Main feature:
     * Move freely in each room
