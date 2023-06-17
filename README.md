@@ -22,16 +22,12 @@ git clone https://github.com/Logan-dlp/LiveTwitch.git
 ```
 2. Open this with **Unity Hub**
 
-## 🛠 Developer
+## 🛠 Devoloper - 📌 Contact
 
-- [Logan](https://github.com/Logan-dlp)
-
-## 📌 Contact
-
-Logan - logan.delachapelle@gmail.com
+[Logan](https://github.com/Logan-dlp) - logan.delachapelle@gmail.com
 
 ## 📄 License
 
 [MIT License](https://github.com/Logan-dlp/Inside-Project/blob/dev/LICENSE)
 
-**Copyright Logan 2023**
+**Copyright Logan 2023 ©**
