@@ -19,11 +19,12 @@ public class EnnemiesController : MonoBehaviour
     private int increment;
     private bool detectPlayer;
 
-    [Header("PNJ settings")]
+    [Header("PNJ settings")] 
+    public float Life = 100;
     public float PNJSpeed = 2.5f;
     public Transform[] Destination;
 
-    [Header("AI settings")] 
+    [Header("AI settings")]
     public float NavigationSpeed = 3.5f;
     public float AttackDistance = 2;
     public float DetectionDistanceMin = 5;
@@ -81,5 +82,34 @@ public class EnnemiesController : MonoBehaviour
             agent.destination = Destination[increment].position;
         }
         else agent.destination = Destination[increment].position;
+    }
+
+    public void HaveDamage(float _damage)
+    {
+        StartCoroutine("Damage");
+        Life -= _damage;
+        Death();
+    }
+
+    void Death()
+    {
+        if (Life <= 0)
+        {
+            StartCoroutine("IsDeath");
+        }
+    }
+
+    IEnumerator Damage()
+    {
+        animator.SetBool("HaveDamage", true);
+        yield return new WaitForSeconds(1.17f);
+        animator.SetBool("HaveDamage", false);
+    }
+
+    IEnumerator IsDeath()
+    {
+        animator.SetBool("IsDead", true);
+        yield return new WaitForSeconds(2.29f);
+        Destroy(gameObject);
     }
 }

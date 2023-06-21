@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player settings")]
     public float Life = 100;
+    public float PunchForce = 10;
+    public float KickForce = 15;
     
     private void Start()
     {
@@ -115,6 +117,30 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyDamage(float _damage)
     {
+        StartCoroutine("Damage");
         Life -= _damage;
+        Death();
+    }
+    
+    void Death()
+    {
+        if (Life <= 0)
+        {
+            StartCoroutine("IsDeath");
+        }
+    }
+
+    IEnumerator Damage()
+    {
+        animator.SetBool("HaveDamage", true);
+        yield return new WaitForSeconds(1.17f);
+        animator.SetBool("HaveDamage", false);
+    }
+
+    IEnumerator IsDeath()
+    {
+        animator.SetBool("IsDead", true);
+        yield return new WaitForSeconds(5.20f);
+        Destroy(gameObject);
     }
 }
