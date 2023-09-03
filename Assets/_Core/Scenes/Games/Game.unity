@@ -1232,6 +1232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: []
+  Resolution: {x: 1920, y: 1080}
 --- !u!4 &971728574
 Transform:
   m_ObjectHideFlags: 0
