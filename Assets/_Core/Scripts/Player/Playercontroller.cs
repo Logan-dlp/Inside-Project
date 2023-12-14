@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController)), RequireComponent(typeof(PlayerInput)), RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
@@ -27,8 +28,9 @@ public class PlayerController : MonoBehaviour
     public float Speed;
     public float RotateSmoothTime = .05f;
 
-    [Header("Player settings")]
-    public float Life = 100;
+    [Header("Player settings")] 
+    public Slider UiLife;
+    [Range(0, 100)] public float Life = 100;
     public float PunchForce = 10;
     public float KickForce = 15;
     
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
         ApplyGravity();
         Mouvement();
         ApplyAnimation();
+        UiLife.value = Life;
     }
 
     void PunchPerformed(InputAction.CallbackContext _ctx)
